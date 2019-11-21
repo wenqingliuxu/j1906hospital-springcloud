@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qf.j1906.mapper.DoctorMapper" >
+  <resultMap id="BaseResultMap" type="com.qf.j1906.pojo.Doctor" >
+    <id column="doctor_Id" property="doctorId" jdbcType="INTEGER" />
+    <result column="do_Name" property="doName" jdbcType="VARCHAR" />
+    <result column="gender" property="gender" jdbcType="VARCHAR" />
+    <result column="dep_Id" property="depId" jdbcType="VARCHAR" />
+    <result column="do_Status" property="doStatus" jdbcType="INTEGER" />
+    <result column="telphone" property="telphone" jdbcType="VARCHAR" />
+    <result column="images" property="images" jdbcType="VARCHAR" />
+    <result column="do_Info" property="doInfo" jdbcType="VARCHAR" />
+    <result column="pwd" property="pwd" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    doctor_Id, do_Name, gender, dep_Id, do_Status, telphone, images, do_Info, pwd
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.qf.j1906.pojo.DoctorExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from doctor
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from doctor
+    where doctor_Id = #{doctorId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from doctor
+    where doctor_Id = #{doctorId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.qf.j1906.pojo.DoctorExample" >
+    delete from doctor
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.qf.j1906.pojo.Doctor" >
+    insert into doctor (doctor_Id, do_Name, gender, 
+      dep_Id, do_Status, telphone, 
+      images, do_Info, pwd
+      )
+    values (#{doctorId,jdbcType=INTEGER}, #{doName,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR}, 
+      #{depId,jdbcType=VARCHAR}, #{doStatus,jdbcType=INTEGER}, #{telphone,jdbcType=VARCHAR}, 
+      #{images,jdbcType=VARCHAR}, #{doInfo,jdbcType=VARCHAR}, #{pwd,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.qf.j1906.pojo.Doctor" >
+    insert into doctor
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="doctorId != null" >
+        doctor_Id,
+      </if>
+      <if test="doName != null" >
+        do_Name,
+      </if>
+      <if test="gender != null" >
+        gender,
+      </if>
+      <if test="depId != null" >
+        dep_Id,
+      </if>
+      <if test="doStatus != null" >
+        do_Status,
+      </if>
+      <if test="telphone != null" >
+        telphone,
+      </if>
+      <if test="images != null" >
+        images,
+      </if>
+      <if test="doInfo != null" >
+        do_Info,
+      </if>
+      <if test="pwd != null" >
+        pwd,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="doctorId != null" >
+        #{doctorId,jdbcType=INTEGER},
+      </if>
+      <if test="doName != null" >
+        #{doName,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="depId != null" >
+        #{depId,jdbcType=VARCHAR},
+      </if>
+      <if test="doStatus != null" >
+        #{doStatus,jdbcType=INTEGER},
+      </if>
+      <if test="telphone != null" >
+        #{telphone,jdbcType=VARCHAR},
+      </if>
+      <if test="images != null" >
+        #{images,jdbcType=VARCHAR},
+      </if>
+      <if test="doInfo != null" >
+        #{doInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="pwd != null" >
+        #{pwd,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.qf.j1906.pojo.DoctorExample" resultType="java.lang.Integer" >
+    select count(*) from doctor
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update doctor
+    <set >
+      <if test="record.doctorId != null" >
+        doctor_Id = #{record.doctorId,jdbcType=INTEGER},
+      </if>
+      <if test="record.doName != null" >
+        do_Name = #{record.doName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gender != null" >
+        gender = #{record.gender,jdbcType=VARCHAR},
+      </if>
+      <if test="record.depId != null" >
+        dep_Id = #{record.depId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.doStatus != null" >
+        do_Status = #{record.doStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.telphone != null" >
+        telphone = #{record.telphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.images != null" >
+        images = #{record.images,jdbcType=VARCHAR},
+      </if>
+      <if test="record.doInfo != null" >
+        do_Info = #{record.doInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pwd != null" >
+        pwd = #{record.pwd,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update doctor
+    set doctor_Id = #{record.doctorId,jdbcType=INTEGER},
+      do_Name = #{record.doName,jdbcType=VARCHAR},
+      gender = #{record.gender,jdbcType=VARCHAR},
+      dep_Id = #{record.depId,jdbcType=VARCHAR},
+      do_Status = #{record.doStatus,jdbcType=INTEGER},
+      telphone = #{record.telphone,jdbcType=VARCHAR},
+      images = #{record.images,jdbcType=VARCHAR},
+      do_Info = #{record.doInfo,jdbcType=VARCHAR},
+      pwd = #{record.pwd,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qf.j1906.pojo.Doctor" >
+    update doctor
+    <set >
+      <if test="doName != null" >
+        do_Name = #{doName,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        gender = #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="depId != null" >
+        dep_Id = #{depId,jdbcType=VARCHAR},
+      </if>
+      <if test="doStatus != null" >
+        do_Status = #{doStatus,jdbcType=INTEGER},
+      </if>
+      <if test="telphone != null" >
+        telphone = #{telphone,jdbcType=VARCHAR},
+      </if>
+      <if test="images != null" >
+        images = #{images,jdbcType=VARCHAR},
+      </if>
+      <if test="doInfo != null" >
+        do_Info = #{doInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="pwd != null" >
+        pwd = #{pwd,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where doctor_Id = #{doctorId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qf.j1906.pojo.Doctor" >
+    update doctor
+    set do_Name = #{doName,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=VARCHAR},
+      dep_Id = #{depId,jdbcType=VARCHAR},
+      do_Status = #{doStatus,jdbcType=INTEGER},
+      telphone = #{telphone,jdbcType=VARCHAR},
+      images = #{images,jdbcType=VARCHAR},
+      do_Info = #{doInfo,jdbcType=VARCHAR},
+      pwd = #{pwd,jdbcType=VARCHAR}
+    where doctor_Id = #{doctorId,jdbcType=INTEGER}
+  </update>
+  <select id="findAll" resultMap="BaseResultMap">
+    select * from doctor
+  </select>
+</mapper>
